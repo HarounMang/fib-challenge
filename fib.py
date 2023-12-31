@@ -1,6 +1,7 @@
 # Date : 31-12-2023
 # Author : Haroun Mangal
 
+# No Fib number may exceed this value.
 MAX_VALUE = 4_000_000
 
 def calculate_fib_sequence(max_value):
@@ -12,7 +13,8 @@ def calculate_fib_sequence(max_value):
     return : The Fibonacci sequence of all numbers less than max_value.
     """
     if max_value < 0: raise ValueError("Negative inputs are not allowed!") 
-    if max_value <= 1: return range(max_value)
+    if max_value == 0: return []
+    if max_value <= 1: return [0]
 
     fib_sequence = [0, 1]
     while fib_sequence[-1] < max_value:
