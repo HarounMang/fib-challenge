@@ -1,39 +1,36 @@
-# Date : 30-12-2023
+# Date : 31-12-2023
 # Author : Haroun Mangal
 
 MAX_VALUE = 4_000_000
 
-def dynamic_fib(nth_number):
+def calculate_fib_sequence(max_value):
     """
-    Calculates the nth (zero-indexed) Fibonacci number using a dynamic programming approach.
+    Calculates the Fibonacci sequence, using a dynamic programming approach, 
+    up until the last Fibonacci numer is bigger than the ax_value given as a parameter.
     Raises a ValueErrow for negative inputs.
-    nth_number : The nth Fibonacci number to calulate starting from zero.
-    return : The nth Fibonacci number.
+    max_value : No number in the sequence can exceed this value.
+    return : The Fibonacci sequence of all numbers less than max_value.
     """
-    if nth_number < 0: raise ValueError("Negative inputs are not allowed!") 
-    if nth_number <= 1: return nth_number
+    if max_value < 0: raise ValueError("Negative inputs are not allowed!") 
+    if max_value <= 1: return range(max_value)
 
-    results = [0 for _ in range(nth_number + 1)]
-    results[1] = 1
-    for i in range(2, nth_number + 1):
-        results[i] = results[i - 1] + results[i - 2]
-    return results[nth_number]
+    fib_sequence = [0, 1]
+    while fib_sequence[-1] < max_value:
+        fib_sequence.append(fib_sequence[-1] + fib_sequence[-2])
+    return fib_sequence
 
-def calculate_sum(max_value):
+def sum_even_fib_numbers(fib_sequence):
     """
-    Calculates the sum of all even Fibonacci numbers which are less than the max_value given as a parameter.
-    The value i gets incremented by three in each iteration of the loop because the third number in the Finonacci sequence is an even number.
-    max_value : Maximum value a Fibonacci number can be for it to be added to the sum.
-    return : Sum of all even Fibonacci number which are less than max_value.
+    Calculates the sum of all even Fibonacci numbers. The value i gets incremented by three in each iteration of the loop because starting from 2
+    (index 3) the third number in the Finonacci sequence is an even number.
+    fib_sequence : Array containing the Fibonacci sequence.
+    return : Sum of all even Fibonacci numbers.
     """
     total_sum = 0
-    i = 0
-    fib_number = dynamic_fib(i)
-    while fib_number < max_value:
-        total_sum += fib_number
-        i += 3
-        fib_number = dynamic_fib(i)
+    for i in range(3, len(fib_sequence), 3):
+        total_sum += fib_sequence[i]
     return total_sum
 
 if __name__ ==  '__main__':
-    print(calculate_sum(MAX_VALUE)) 
+    fib_sequence = calculate_fib_sequence(MAX_VALUE)
+    print(sum_even_fib_numbers(fib_sequence))
